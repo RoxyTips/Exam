@@ -15,4 +15,10 @@ public interface IMovieServiceAPI {
 
     @GET("{sort}")
     Call<MovieServiceResponse> getMovies(@Path("sort") String sort, @Query("api_key") String apiKey);
+
+    @GET("{id}")
+    Call<MovieServiceResponse> getTrailers(@Path("id") int id, @Query("api_key") String apiKey);
+
+    @GET("{id}")
+    Call<MovieServiceResponse> getReviews(@Path("id") int id, @Query("api_key") String apiKey);
 }

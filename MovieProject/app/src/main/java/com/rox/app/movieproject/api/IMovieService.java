@@ -8,4 +8,6 @@ import com.rox.app.movieproject.pojo.MovieServiceResponse;
 
 public interface IMovieService {
     void getMovies(String sort, String apikey, IRetrofitCallBack<MovieServiceResponse> callBack);
+    void getTrailers(int idMovie, String apiKey,IRetrofitCallBack<MovieServiceResponse> callBack);
+    void getReviews(int idMovie, String apiKey,IRetrofitCallBack<MovieServiceResponse> callBack);
 }

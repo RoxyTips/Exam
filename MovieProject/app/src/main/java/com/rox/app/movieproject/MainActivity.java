@@ -3,60 +3,78 @@ package com.rox.app.movieproject;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.Spinner;
 
 import com.rox.app.movieproject.api.IRetrofitCallBack;
 import com.rox.app.movieproject.api.MovieProjectService;
 import com.rox.app.movieproject.pojo.MovieServiceResponse;
 
-import butterknife.OnClick;
-
 public class MainActivity extends AppCompatActivity {
 
     private PosterAdapter adapter;
+    private String sort = "popular";
     GridView posterGridView;
+    Spinner sortSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(savedInstanceState == null){
+        if(savedInstanceState == null) {
             setContentView(R.layout.activity_main);
-            /*MovieListFragment fragment = new MovieListFragment();
-            Bundle args = new Bundle();
-            fragment.setArguments(args);
-
-            args.putString("tri", getIntent().getExtras().getString("tri", "pop"));
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, fragment)
-                    .commit();*/
             adapter = new PosterAdapter(this);
 
-            posterGridView = (GridView)findViewById(R.id.movie_poster_grid);
+            posterGridView = (GridView) findViewById(R.id.movie_poster_grid);
+            sortSpinner = (Spinner) findViewById(R.id.spinner);
 
-            MovieProjectService service = new MovieProjectService();
-            service.getMovies("popular", Constant.API_KEY, new IRetrofitCallBack<MovieServiceResponse>() {
+            ArrayAdapter<CharSequence> adapterSort = ArrayAdapter.createFromResource(this,
+                    R.array.sort_array, android.R.layout.simple_spinner_item);
+            adapterSort.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            sortSpinner.setAdapter(adapterSort);
+            sortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onSuccess(MovieServiceResponse response) {
-                    Log.d("Response success", response.toString());
-
-                    adapter.setMovieServiceResponse(response);
-                    posterGridView.setAdapter(adapter);
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    sort = getValueOfSort(parent.getItemAtPosition(position).toString());
+                    refreshData();
                 }
 
                 @Override
-                public void onFailure(String codeError) {
-                    Log.e("Response error", codeError);
+                public void onNothingSelected(AdapterView<?> parent) {
+
                 }
             });
+
+            refreshData();
         }
-
-
-
     }
 
-    @OnClick(R.id.movie_poster_grid)
-    public void onClickPoster() {
+    private void refreshData(){
+        MovieProjectService service = new MovieProjectService();
+        service.getMovies(sort, Constant.API_KEY, new IRetrofitCallBack<MovieServiceResponse>() {
+            @Override
+            public void onSuccess(MovieServiceResponse response) {
+                Log.d("Response success", response.toString());
 
+                adapter.setMovieServiceResponse(response);
+                posterGridView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(String codeError) {
+                Log.e("Response error", codeError);
+            }
+        });
+    }
+
+    private String getValueOfSort(String itemValue){
+        if("Most Popular".toLowerCase().trim().equals(itemValue.toLowerCase().trim())){
+            return "popular";
+        }else{
+            return "top_rated";
+        }
     }
 
 }

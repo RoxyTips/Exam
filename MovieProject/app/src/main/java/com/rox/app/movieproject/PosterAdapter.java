@@ -57,9 +57,8 @@ public class PosterAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, DetailActivity.class);
-                intent.putExtra("serializable_extra", currentMovie);
+                intent.putExtra("movie_extra", currentMovie);
                 mContext.startActivity(intent);
-
             }
         });
         return imageView;
