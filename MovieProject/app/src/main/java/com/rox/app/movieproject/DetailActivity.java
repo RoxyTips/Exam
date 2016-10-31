@@ -1,18 +1,24 @@
 package com.rox.app.movieproject;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.rox.app.movieproject.api.IRetrofitCallBack;
+import com.rox.app.movieproject.api.MovieProjectService;
 import com.rox.app.movieproject.pojo.MovieServiceResponse;
+import com.rox.app.movieproject.pojo.TrailerServiceResponse;
 import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends AppCompatActivity {
 
-
+    private Context contextActivity;
     private MovieServiceResponse.Movie movie;
 
     @Override
@@ -26,6 +32,7 @@ public class DetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(movie.title);
 
+        contextActivity = this;
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +50,7 @@ public class DetailActivity extends AppCompatActivity {
 
         TextView titleTextView = (TextView)findViewById(R.id.title_movie_detail2);
         TextView synopsisTextView = (TextView)findViewById(R.id.synopsis_movie_detail2);
+        synopsisTextView.setMovementMethod(new ScrollingMovementMethod());
         TextView releaseDateTextView = (TextView)findViewById(R.id.release_date_movie_detail2);
         RatingBar ratingBarDetail = (RatingBar)findViewById(R.id.ratingBar_movie_detail2);
         ImageView imageViewPoster = (ImageView)findViewById(R.id.poster_movie_detail2);
@@ -54,6 +62,24 @@ public class DetailActivity extends AppCompatActivity {
         Picasso.with(this)
                 .load(posterPath)
                 .into(imageViewPoster);
+
+        int idMovie = movie.id;
+        ListView trailerList = (ListView) findViewById(R.id.listview_trailers);
+        MovieProjectService service = new MovieProjectService();
+        service.getTrailers(idMovie, Constant.API_KEY, new IRetrofitCallBack<TrailerServiceResponse>() {
+            @Override
+            public void onSuccess(TrailerServiceResponse response) {
+                TrailerAdapter adapter = new TrailerAdapter(contextActivity, response);
+                ListView listView = (ListView)findViewById(R.id.listview_trailers);
+                listView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(String codeError) {
+
+            }
+        });
+
 
     }
 }

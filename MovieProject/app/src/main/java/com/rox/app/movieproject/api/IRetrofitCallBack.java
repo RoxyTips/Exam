@@ -9,3 +9,4 @@ public interface IRetrofitCallBack<T> {
     void onSuccess(T response);
     void onFailure(String codeError);
 }
+
