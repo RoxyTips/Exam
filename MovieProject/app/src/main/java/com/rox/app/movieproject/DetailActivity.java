@@ -1,15 +1,19 @@
 package com.rox.app.movieproject;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.rox.app.movieproject.Data.MovieContract;
 import com.rox.app.movieproject.api.IRetrofitCallBack;
 import com.rox.app.movieproject.api.MovieProjectService;
 import com.rox.app.movieproject.pojo.MovieServiceResponse;
@@ -80,6 +84,25 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        ImageButton addFavoriteButton = (ImageButton)findViewById(R.id.imageButton);
+        addFavoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addFavoriteToDb();
+            }
+        });
+    }
 
+    private void addFavoriteToDb(){
+        ContentValues[] movieArr = new ContentValues[1];
+        movieArr[0] = new ContentValues();
+        movieArr[0].put(MovieContract.MovieEntry.COLUMN_ID_MOVIE_DB, movie.id);
+        movieArr[0].put(MovieContract.MovieEntry.COLUMN_TITLE, movie.title);
+        movieArr[0].put(MovieContract.MovieEntry.COLUMN_POSTER, movie.posterPath);
+        movieArr[0].put(MovieContract.MovieEntry.COLUMN_RELEASE_DATE, movie.releaseDate);
+        movieArr[0].put(MovieContract.MovieEntry.COLUMN_SYNOPSIS,movie.overview);
+        movieArr[0].put(MovieContract.MovieEntry.COLUMN_RATE, movie.voteAverage/2);
+
+        getContentResolver().bulkInsert(MovieContract.MovieEntry.CONTENT_URI, movieArr);
     }
 }

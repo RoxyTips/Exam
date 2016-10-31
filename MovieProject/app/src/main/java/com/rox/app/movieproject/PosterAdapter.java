@@ -19,6 +19,7 @@ public class PosterAdapter extends BaseAdapter {
     private Context mContext;
     private MovieServiceResponse movieServiceResponse;
 
+
     public PosterAdapter(Context context) {
         mContext = context;
     }
@@ -68,4 +69,5 @@ public class PosterAdapter extends BaseAdapter {
     public void setMovieServiceResponse(MovieServiceResponse movieServiceResponse) {
         this.movieServiceResponse = movieServiceResponse;
     }
+
 }

@@ -11,7 +11,7 @@ import java.util.List;
  * Created by admuin on 30/10/2016.
  */
 
-public class MovieServiceResponse {
+public class MovieServiceResponse implements Serializable{
 
     @SerializedName("page")
     @Expose
@@ -27,7 +27,14 @@ public class MovieServiceResponse {
     public Integer totalPages;
 
     public class Movie implements Serializable {
-
+        public Movie(String posterPath, String overview, String releaseDate, Float voteAverage, String title, Integer id){
+            this.id = id;
+            this.overview = overview;
+            this.posterPath = posterPath;
+            this.releaseDate = releaseDate;
+            this.title = title;
+            this.voteAverage = voteAverage;
+        }
         @SerializedName("poster_path")
         @Expose
         public String posterPath;
