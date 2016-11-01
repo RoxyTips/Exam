@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager.Lo
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
        return new CursorLoader(mcontext,
                 MovieContract.MovieEntry.CONTENT_URI,
-                null,
+                Constant.MOVIE_COL,
                 null,
                 null,
                 null);
@@ -141,8 +141,17 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager.Lo
     @Override
     protected void onStart() {
         super.onStart();
-        if(!sort.equals(getString(R.string.valueFavorite))){
+        if(sort.equals(getString(R.string.valueFavorite))){
+            getLoaderManager().destroyLoader(CURSOR_LOADER_ID);
+            getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
+        }
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(sort.equals(getString(R.string.valueFavorite))) {
+            getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
         }
     }
 }
