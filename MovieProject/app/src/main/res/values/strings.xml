@@ -14,4 +14,8 @@
     <string name="valueTopRated">top_rated</string>
     <string name="valueFavorite">favorite</string>
 
+
+    <string name="reviewButtonText">Watch reviews</string>
+    <string name="reviewBy">Review by :</string>
+
 </resources>

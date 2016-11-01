@@ -2,6 +2,7 @@ package com.rox.app.movieproject.api;
 
 import com.rox.app.movieproject.Constant;
 import com.rox.app.movieproject.pojo.MovieServiceResponse;
+import com.rox.app.movieproject.pojo.ReviewServiceResponse;
 import com.rox.app.movieproject.pojo.TrailerServiceResponse;
 
 import retrofit2.Call;
@@ -74,16 +75,16 @@ public class MovieProjectService implements IMovieService {
     }
 
     @Override
-    public void getReviews(int idMovie, String apiKey, final IRetrofitCallBack<MovieServiceResponse> callBack) {
+    public void getReviews(int idMovie, String apiKey, final IRetrofitCallBack<ReviewServiceResponse> callBack) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constant.URL_REVIEWS)
+                .baseUrl(Constant.URL_MOVIE)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         serviceAPI = retrofit.create(IMovieServiceAPI.class);
-        Call<MovieServiceResponse> call = serviceAPI.getReviews(idMovie, apiKey);
-        call.enqueue(new Callback<MovieServiceResponse>() {
+        Call<ReviewServiceResponse> call = serviceAPI.getReviews(idMovie, apiKey);
+        call.enqueue(new Callback<ReviewServiceResponse>() {
             @Override
-            public void onResponse(Call<MovieServiceResponse> call, Response<MovieServiceResponse> response) {
+            public void onResponse(Call<ReviewServiceResponse> call, Response<ReviewServiceResponse> response) {
                 if (response.isSuccessful()) {
                     callBack.onSuccess(response.body());
                 } else {
@@ -92,7 +93,7 @@ public class MovieProjectService implements IMovieService {
             }
 
             @Override
-            public void onFailure(Call<MovieServiceResponse> call, Throwable t) {
+            public void onFailure(Call<ReviewServiceResponse> call, Throwable t) {
                 callBack.onFailure("service failure : " + t.getMessage());
             }
         });

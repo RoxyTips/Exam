@@ -1,6 +1,7 @@
 package com.rox.app.movieproject.api;
 
 import com.rox.app.movieproject.pojo.MovieServiceResponse;
+import com.rox.app.movieproject.pojo.ReviewServiceResponse;
 import com.rox.app.movieproject.pojo.TrailerServiceResponse;
 
 import retrofit2.Call;
@@ -21,5 +22,5 @@ public interface IMovieServiceAPI {
     Call<TrailerServiceResponse> getTrailers(@Path("id") int id, @Query("api_key") String apiKey);
 
     @GET("{id}/reviews")
-    Call<MovieServiceResponse> getReviews(@Path("id") int id, @Query("api_key") String apiKey);
+    Call<ReviewServiceResponse> getReviews(@Path("id") int id, @Query("api_key") String apiKey);
 }
