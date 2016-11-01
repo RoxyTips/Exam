@@ -9,10 +9,15 @@
         <item>Highest rated</item>
         <item>Favorite</item>
     </string-array>
+
     <string name="title_activity_detail">DetailActivity</string>
     <string name="valueMostPop">popular</string>
     <string name="valueTopRated">top_rated</string>
     <string name="valueFavorite">favorite</string>
+
+    <string name="mostpopular">mostpopular</string>
+    <string name="toprated">toprated</string>
+    <string name="favorite">favorite</string>
 
 
     <string name="reviewButtonText">Watch reviews</string>

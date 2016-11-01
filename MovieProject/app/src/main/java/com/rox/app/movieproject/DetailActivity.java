@@ -16,6 +16,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rox.app.movieproject.Adapters.TrailerAdapter;
 import com.rox.app.movieproject.Data.MovieContract;
 import com.rox.app.movieproject.api.IRetrofitCallBack;
 import com.rox.app.movieproject.api.MovieProjectService;
@@ -114,6 +115,7 @@ public class DetailActivity extends AppCompatActivity {
                 fragment.setArguments(args);
                 getSupportFragmentManager().beginTransaction()
                         .add(R.id.fragment_container, fragment)
+                        .addToBackStack("BackToDetail")
                         .commit();
             }
         });

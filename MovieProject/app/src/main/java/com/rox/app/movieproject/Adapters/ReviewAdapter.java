@@ -1,4 +1,4 @@
-package com.rox.app.movieproject;
+package com.rox.app.movieproject.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.rox.app.movieproject.R;
 import com.rox.app.movieproject.pojo.ReviewServiceResponse;
 
 /**

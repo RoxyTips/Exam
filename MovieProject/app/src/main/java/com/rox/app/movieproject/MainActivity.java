@@ -15,6 +15,8 @@ import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.rox.app.movieproject.Adapters.PosterAdapter;
+import com.rox.app.movieproject.Adapters.PosterDbAdapter;
 import com.rox.app.movieproject.Data.MovieContract;
 import com.rox.app.movieproject.api.IRetrofitCallBack;
 import com.rox.app.movieproject.api.MovieProjectService;
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager.Lo
                 }
             });
 
-            refreshData();
+            //refreshData();
         }
     }
 
@@ -109,7 +111,7 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager.Lo
     }
 
     private String getValueOfSort(String itemValue){
-        if(getString(R.string.valueMostPop).equals(itemValue.toLowerCase().trim())){
+        if(getString(R.string.mostpopular).equals(itemValue.toLowerCase().replaceAll(" ",""))){
             return getString(R.string.valueMostPop);
         }else if(getString(R.string.valueFavorite).equals(itemValue.toLowerCase().trim())){
             return getString(R.string.valueFavorite);

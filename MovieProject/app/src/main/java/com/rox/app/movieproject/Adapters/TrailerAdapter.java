@@ -1,4 +1,4 @@
-package com.rox.app.movieproject;
+package com.rox.app.movieproject.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.rox.app.movieproject.Constant;
+import com.rox.app.movieproject.R;
 import com.rox.app.movieproject.pojo.TrailerServiceResponse;
 
 import static android.content.Intent.ACTION_VIEW;

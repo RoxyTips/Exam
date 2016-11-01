@@ -4,11 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.rox.app.movieproject.Adapters.ReviewAdapter;
 import com.rox.app.movieproject.api.IRetrofitCallBack;
 import com.rox.app.movieproject.api.MovieProjectService;
 import com.rox.app.movieproject.pojo.ReviewServiceResponse;
@@ -67,20 +69,20 @@ public class ReviewFragment extends Fragment {
             }
         });
 
-
-        // Set the adapter
-        /*if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_BACK){
+                    return true;
+                }
+                return false;
             }
-            //recyclerView.setAdapter(new MyReviewRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-        }*/
+        });
+
         return view;
     }
+
+
 
 /*
     @Override

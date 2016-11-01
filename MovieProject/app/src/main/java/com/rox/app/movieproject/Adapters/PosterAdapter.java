@@ -1,4 +1,4 @@
-package com.rox.app.movieproject;
+package com.rox.app.movieproject.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.rox.app.movieproject.Constant;
+import com.rox.app.movieproject.DetailActivity;
 import com.rox.app.movieproject.pojo.MovieServiceResponse;
 import com.squareup.picasso.Picasso;
 
